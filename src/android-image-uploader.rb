@@ -37,14 +37,14 @@ myImages.each { |image_file_name|
     exif_data = EXIFR::JPEG.new(image_file_name)
     
     
-    puts exif_data.gps.latitude.to_s
-    puts exif_data.gps.longitude.to_s
+    #puts exif_data.gps.latitude.to_s
+    #puts exif_data.gps.longitude.to_s
   
-    item_id = Digest::MD5.hexdigest(exif_data.date_time.to_s + exif_data.gps.latitude.to_s + exif_data.gps.longitude.to_s + File.size(image_file_name).to_s + exif_data.model + exif_data.exposure_time.to_s + exif_data.f_number.to_s)
+    item_id = Digest::MD5.hexdigest(exif_data.date_time.to_s + exif_data.gps.latitude.to_s + exif_data.gps.longitude.to_s + File.size(image_file_name).to_s)
     puts item_id
-    puts File.size(image_file_name).to_s
-    puts exif_data.date_time.to_s
-    
+    #puts File.size(image_file_name).to_s
+    #puts exif_data.date_time.to_s
+    puts exif_data.model    
   
     application_data = {
       :item_id => item_id,
@@ -65,7 +65,7 @@ myImages.each { |image_file_name|
       :startTimestamp => exif_data.date_time.to_time.to_i,
       :endTimestamp => exif_data.date_time.to_time.to_i,
   
-      :publishStatus => 'public',
+      :publishStatus => 'private',
       :appItemId => item_id,
       :appData => JSON.generate(application_data)
       
@@ -74,26 +74,22 @@ myImages.each { |image_file_name|
       case response.code
       when 200
         p "It worked !"
-        #puts response
-        #puts result
-        #puts response.headers
-        #response
+        puts response
+        puts result
+        #File.rename(image_file_name, image_file_name + '.done');
       when 423
         put "something 423?"
         exit
-        #raise SomeCustomExceptionIfYouWant
       else
-        #puts response
         puts "SOMETHING WENT WRONG, ABORTING."
         exit
-        
-        #response.return!(request, result, &block)
+       
       end
     }
 
   rescue NoMethodError
     puts "image did not have latitude longitude, not uploading"
-    
+    #File.delete(image_file_name)
   end
   
   
