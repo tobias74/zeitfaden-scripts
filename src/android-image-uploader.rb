@@ -9,13 +9,16 @@ require 'json'
 require 'time'
 require 'exifr'
 require 'digest/md5'
+require 'fileutils'
+
 
 
 puts 'Starting...'
 
 authorization_code_value = ARGV.shift
 
-client = OAuth2::Client.new('553cf9b43f5cb781589','SoPCz4GzYcUOUMfHpz1Bkw489uVdHDYA2OcBSSaR', :site => 'http://test.zeitfaden.com');
+#client = OAuth2::Client.new('553cf9b43f5cb781589','SoPCz4GzYcUOUMfHpz1Bkw489uVdHDYA2OcBSSaR', :site => 'http://test.zeitfaden.com');
+client = OAuth2::Client.new('554150b209dc9381571','Pi61iR9H7TkYjKC2CodP3RKGjwU7zrqoKxq2oAJw', :site => 'http://www.zeitfaden.com');
 
 client.auth_code.authorize_url(:redirect_uri => 'http://myretrunlocalhost:8080/oauth2/callback')
 
@@ -55,7 +58,8 @@ myImages.each { |image_file_name|
   
     
   
-    RestClient.post("http://test.zeitfaden.com/station/upsert/?access_token=#{my_access_token}",
+#    RestClient.post("http://test.zeitfaden.com/station/upsertByAppItemId/?access_token=#{my_access_token}",
+    RestClient.post("http://www.zeitfaden.com/station/upsertByAppItemId/?access_token=#{my_access_token}",
       :uploadFile => File.new(image_file_name),
       :startLatitude => exif_data.gps.latitude,
       :startLongitude => exif_data.gps.longitude,
@@ -76,6 +80,7 @@ myImages.each { |image_file_name|
         p "It worked !"
         puts response
         puts result
+        FileUtils.mv(image_file_name, 'done/' + image_file_name)
         #File.rename(image_file_name, image_file_name + '.done');
       when 423
         put "something 423?"
