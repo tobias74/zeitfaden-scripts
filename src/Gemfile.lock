@@ -11,6 +11,7 @@ GEM
       domain_name (~> 0.5)
     jwt (1.4.1)
     mime-types (2.5)
+    mini_exiftool (2.5.0)
     multi_json (1.11.0)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
@@ -36,5 +37,6 @@ PLATFORMS
 
 DEPENDENCIES
   exifr
+  mini_exiftool
   oauth2
   rest-client
