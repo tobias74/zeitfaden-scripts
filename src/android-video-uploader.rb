@@ -94,6 +94,9 @@ myImages.each { |image_file_name|
       :endLatitude => latitude,
       :endLongitude => longitude,
   
+      :startTimezone => 'Europe/Berlin',
+      :endTimezone => 'Europe/Berlin',
+  
       :startTimestamp => video_timestamp,
       :endTimestamp => video_timestamp,
   
