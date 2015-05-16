@@ -67,6 +67,9 @@ myImages.each { |image_file_name|
       :endLatitude => exif_data.gps.latitude,
       :endLongitude => exif_data.gps.longitude,
   
+      :startTimezone => 'Europe/Berlin',
+      :endTimezone => 'Europe/Berlin',
+  
       :startTimestamp => exif_data.date_time.to_time.to_i,
       :endTimestamp => exif_data.date_time.to_time.to_i,
   
