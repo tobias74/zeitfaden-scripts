@@ -33,7 +33,7 @@ puts 'Starting...'
 
 authorization_code_value = ARGV.shift
 
-client = OAuth2::Client.new('554ca2986bd6d918568','3mnrEDNauxoy2S4omvlkegGBTjksAwmDSJ5xnSHS', :site => 'http://www.zeitfaden.com');
+client = OAuth2::Client.new('554ca2986bd6d918568','3mnrEDNauxoy2S4omvlkegGBTjksAwmDSJ5xnSHS', :site => 'http://api.zeitfaden.com');
 
 client.auth_code.authorize_url(:redirect_uri => 'http://myretrunlocalhost:8080/oauth2/callback')
 
@@ -87,7 +87,7 @@ myImages.each { |image_file_name|
   
     
   
-    RestClient.post("http://www.zeitfaden.com/station/upsertByAppItemId/?access_token=#{my_access_token}",
+    RestClient.post("http://api.zeitfaden.com/station/upsertByAppItemId/?access_token=#{my_access_token}",
       :uploadFile => File.new(image_file_name),
       :startLatitude => latitude,
       :startLongitude => longitude,

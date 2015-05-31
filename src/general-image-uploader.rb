@@ -17,7 +17,7 @@ puts 'Starting genral image upload for images potentially without location...'
 
 authorization_code_value = ARGV.shift
 
-client = OAuth2::Client.new('5556e6e3cd639701118','gWRioH9hU1q3ANgxiXDqnqhVEsernZ7DWYWlG6CA', :site => 'http://test.zeitfaden.com');
+client = OAuth2::Client.new('55570974e20be405677','2FaxMaKGe9j7uUW560pQc5Yok3tnwgIyWS6I2Rog', :site => 'http://api.zeitfaden.com');
 client.auth_code.authorize_url(:redirect_uri => 'http://myretrunlocalhost:8080/oauth2/callback')
 token = client.auth_code.get_token(authorization_code_value, :redirect_uri => 'http://www.gaszmann.de/excel_oauth_app/', :headers => {'Authorization' => 'Basic some_password'})
 puts token.to_hash
@@ -68,10 +68,10 @@ myImages.each { |image_file_name|
       }  
    
 
-      puts "http://test.zeitfaden.com/station/getByAppItemId/appItemId/#{item_id}?access_token=#{my_access_token}"
+      puts "http://api.zeitfaden.com/station/getByAppItemId/appItemId/#{item_id}?access_token=#{my_access_token}"
       
 
-      RestClient.get("http://test.zeitfaden.com/station/getByAppItemId/appItemId/#{item_id}?access_token=#{my_access_token}"){ |response, request, result, &block|
+      RestClient.get("http://api.zeitfaden.com/station/getByAppItemId/appItemId/#{item_id}?access_token=#{my_access_token}"){ |response, request, result, &block|
         puts "######################################################################################### this is the respinse code #{response.code}"
         case response.code
         when 200
@@ -80,7 +80,7 @@ myImages.each { |image_file_name|
           puts result
         when 404
           puts "does not exist, we can insert."
-          RestClient.post("http://test.zeitfaden.com/station/insertWithAppItemId/?access_token=#{my_access_token}", post_data ){ |response2, request2, result2, &block2|
+          RestClient.post("http://api.zeitfaden.com/station/insertWithAppItemId/?access_token=#{my_access_token}", post_data ){ |response2, request2, result2, &block2|
             puts "######################################################################################### this is the respinse code #{response2.code}"
             case response2.code
             when 200
